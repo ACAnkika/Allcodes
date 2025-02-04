@@ -1,0 +1,45 @@
+from tkinter import *
+import random
+
+# Creating GUI window using tinker
+root = Tk()
+# Defining the container size, width=400, height=240
+root.geometry('400x240')
+# Title of the container
+root.title('Love Calculator game made with love')
+
+# Heading on Top
+header = Label(root, text='calculate your relation?')
+header.pack()
+
+# Slot/input for the first name
+name_label1 = Label(root, text="Enter Your Name:")
+name_label1.pack()
+user_name = Entry(root, border=5)
+user_name.pack()
+
+# Slot/input for the partner name
+name_label2 = Label(root, text="Enter Your Partner Name:")
+name_label2.pack()
+partner_name = Entry(root, border=5)
+partner_name.pack()
+
+# Function to generate random love percentage
+def compute_affection():
+    # value will contain digits between 0-9
+    digits = '0123456789'
+    # result will be in double digits
+    length = 2
+    random_value = "".join(random.sample(digits, length))
+    output_label.config(text=random_value)
+
+# Text on result slot
+output_label = Label(root, text='Love Percentage between both of You:')
+output_label.pack()
+
+# Button to trigger calculation
+action_button = Button(root, text="Calculate", height=1, width=7, command=compute_affection)
+action_button.pack()
+
+# Starting the GUI
+root.mainloop()
