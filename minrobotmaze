@@ -1,0 +1,41 @@
+from collections import deque
+
+def min_steps_in_maze(maze):
+    if not maze or not maze[0]:
+        return -1
+
+    rows, cols = len(maze), len(maze[0])
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # Right, Down, Left, Up
+    visited = [[False] * cols for _ in range(rows)]
+    
+    # Start at (0, 0) with 0 steps
+    queue = deque([(0, 0, 0)])
+    visited[0][0] = True
+
+    while queue:
+        x, y, steps = queue.popleft()
+
+        # Goal reached
+        if x == rows - 1 and y == cols - 1:
+            return steps
+
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+
+            if (0 <= nx < rows and 0 <= ny < cols and
+                maze[nx][ny] == 0 and not visited[nx][ny]):
+                visited[nx][ny] = True
+                queue.append((nx, ny, steps + 1))
+
+    return -1  # No path found
+
+# Example maze
+maze = [
+    [0, 0, 1, 0],
+    [1, 0, 1, 0],
+    [0, 0, 0, 0],
+    [0, 1, 1, 0]
+]
+
+result = min_steps_in_maze(maze)
+print(f"Minimum steps: {result}")
