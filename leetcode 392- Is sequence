@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        unordered_map<char, vector<int>> mp;
+
+        // Preprocess t
+        for (int i = 0; i < t.size(); i++) {
+            mp[t[i]].push_back(i);
+        }
+
+        int prev = -1;
+
+        // Check subsequence using binary search
+        for (char c : s) {
+            if (mp.find(c) == mp.end()) return false;
+
+            auto &vec = mp[c];
+            auto it = upper_bound(vec.begin(), vec.end(), prev);
+
+            if (it == vec.end()) return false;
+            prev = *it;
+        }
+
+        return true;
+    }
+};
